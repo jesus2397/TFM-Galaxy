@@ -1,0 +1,74 @@
+Sending build context to Docker daemon  239.1kB
+Step 1/24 : FROM bgruening/galaxy-stable:20.09
+ ---> bade408b097d
+Step 2/24 : RUN apt-get update -qq
+ ---> Using cache
+ ---> 879e0be73a11
+Step 3/24 : RUN apt-get install -y --no-install-recommends software-properties-common dirmngr
+ ---> Using cache
+ ---> dfbb288eb2cf
+Step 4/24 : RUN apt-get install wget
+ ---> Using cache
+ ---> 7a473fbdca75
+Step 5/24 : RUN apt-get install -y make cmake gfortran libcurl4-openssl-dev zlib1g-dev libxml2-dev libfontconfig1-dev
+ ---> Using cache
+ ---> a57642c116cd
+Step 6/24 : RUN apt-get install -y libjpeg-dev libpng-dev libxml2-dev liblapack-dev libblas-dev libssl-dev libudunits2-dev libgeos-dev libfreetype6-dev libtiff5-dev
+ ---> Using cache
+ ---> 23f2d801e6c9
+Step 7/24 : RUN apt-get install -y libharfbuzz-dev libfribidi-dev libgdal-dev libcairo2-dev
+ ---> Using cache
+ ---> a1a73db6e464
+Step 8/24 : RUN wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+ ---> Using cache
+ ---> dc902016bbb0
+Step 9/24 : RUN add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+ ---> Using cache
+ ---> 27bf0c5bb5c9
+Step 10/24 : RUN apt install -y --no-install-recommends r-base
+ ---> Using cache
+ ---> f49e72808e78
+Step 11/24 : RUN R -e "install.packages( c('ggplot2'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> b3c104bad476
+Step 12/24 : RUN R -e "install.packages( c('dplyr'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> f524d714d95d
+Step 13/24 : RUN R -e "install.packages( c('tidyr'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> 10ea074f9118
+Step 14/24 : RUN R -e "install.packages( c('getopt'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> 9d5f0b12c2c9
+Step 15/24 : RUN R -e "install.packages( c('tibble'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> ddc0e30bad22
+Step 16/24 : RUN R -e "install.packages( c('tidyverse'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> 135af1550ed9
+Step 17/24 : RUN R -e "install.packages( c('gtools'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> a380e2087436
+Step 18/24 : RUN R -e "install.packages( c('nloptr'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> 6a2b7d0d4d88
+Step 19/24 : RUN R -e "install.packages( c('Cairo'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> c041f3463e5a
+Step 20/24 : RUN R -e "install.packages( c('DESeq2'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> 6698bc5c98d1
+Step 21/24 : RUN R -e "install.packages( c('tibble'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> 7b6b0dbfe773
+Step 22/24 : RUN R -e "install.packages( c('ape'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> 5cf330724a9e
+Step 23/24 : RUN R -e "install.packages( c('phyloseq'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> ed4637a8f5ca
+Step 24/24 : RUN R -e "install.packages( c('vegan'), dependencies=TRUE, repos='http://cran.rstudio.com' )"
+ ---> Using cache
+ ---> 79576fa131bc
+Successfully built 79576fa131bc
+Successfully tagged myimage:latest
