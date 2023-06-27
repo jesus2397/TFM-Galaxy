@@ -1,0 +1,30 @@
+<tool id="myboxplot" name="Abundance boxplot" version="0.1.0">
+  <description>Otu boxplot</description>
+ <command interpreter="Rscript">
+                  plotOtu.R --inputfile $input --inputnumber $numtaxa
+  </command>
+  <inputs>
+    <param format="rdata" name="input" type="data" label="Source file"/>
+    <param name="numtaxa" type="text" value="10" label="Number of taxa to show"/>
+  </inputs>
+  <outputs>
+	  <data format="png" name="boxplot" label="boxplotOtu.png" from_work_dir="boxplotOtu.png"/>
+  </outputs>
+  <help>
+This tool generates an abundance boxplot graphic from *.Rdata* file get in *Process Otu* tool.\
+
+**What is a boxplot?**\
+
+Boxplot is a representation of five stadisticals parameters from a goup of data: minimum, first quartile, median, third quartile and maximum. The core of the representations is a box where lower limit represents first quartile, upper limit represents third quartile and line inside represents median of data. End of top line is the maximun and end of bottom line is the minimun.\
+
+.. image:: /home//boxplot1.png :height: 500 :width: 600
+
+*Abundance Boxplot* represents abundance of different microorganism in samples by genus, family or species. Then, it represents every type of microorganism by type: *severe*, *moderate* and *light*.Every type of microorganism is classified by three different colours: pink for *light* one, green for *moderate* one and blue for *severe* one.\
+
+User can found in *Abundance Boxplot* axis:\
+
+-  Taxa of all microorganism of sample appears in abscissa axis.
+- Abundance(log2) of every type of microorganism (genus, family or species) appers in ordinate axis.
+  </help>
+
+</tool>

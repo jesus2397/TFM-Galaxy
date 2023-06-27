@@ -1,0 +1,30 @@
+---
+title: "Similarity"
+output: html_document
+params:
+  otuphylfile: NA
+  metadata: NA
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+pkgs <- c("ggplot2","dplyr","tidyr", "getopt","limma","tibble","phyloseq","kableExtra","vegan","gtools")
+for (pkg in pkgs) suppressPackageStartupMessages(stopifnot(library(pkg, quietly = TRUE, logical.return = TRUE, character.only = TRUE)))
+```
+
+
+```{r}
+load(params$otuphylfile)
+metadata <- read.table(params$metadata, header = T , sep="\t", stringsAsFactors = FALSE)
+
+otug <- otuphyl
+otugTable <- otu_table(otug)
+
+combinaciones <- combinations( length(unique(metadata$condition)), 2, unique(metadata$condition)  ) %>% as.data.frame()
+
+# combinaciones <- gtools::combinations(3, 2, c("L","M","S") ) %>% as.data.frame()
+similaridad <- anosim( t(otugTable), grouping = factor(metadata$condition), distance = "bray" )
+summary(similaridad)
+```

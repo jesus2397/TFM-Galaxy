@@ -1,0 +1,42 @@
+<tool id="mybarplot" name="Barplot by group" version="0.1.0">
+  <description>Barplot</description>
+  <command interpreter="Rscript"> barplot.R --otuphylfile $input </command>
+  <inputs>
+    <param format="rdata" name="input" type="data" label="Source file"/>
+   </inputs>
+  <outputs>
+    <data format="png" name="barplot" label="barplot.png" from_work_dir="barplot.png"/>
+  </outputs>
+  <help> 
+.. class:: warningmark
+
+**WARNING**.This tool requires **Otuphyl file** get in *Compute otuphyl* tool.\
+
+.. class:: infomark
+
+**What is a barplot?**\
+
+A barplot is a graphics that represents the relationship between a numeric and a categorical variable. Each categorical variable claims one bar and they are represented in Y-axis. Values of every categorical variable appear in X axis.\
+
+
+**Barplot by group tool**\
+
+*Barplot by group* is a tool that represents abundance by group provided by the data.\
+
+- In X-axis are located different groups of data: H,I and J.\
+-  In Y-axis is located the abundance represented by percentaje (%).\
+
+In every bar of every group is represented the abundance correspondent to every genus, family or species of bacteria.\
+
+.. image:: ${static_path}/images/iontorrent/barplot.png
+           :height: 600
+           :width: 800
+
+
+**References**\
+
+Phillips, N. D. (2018, 22 january). YaRrr! The Pirate’s Guide to R. bookdown.org. https://bookdown.org/ndphillips/YaRrr/barplot-barplot.html\
+
+Miller, T. (2017, 7 july). What Is a Bar Chart? Chartio. https://chartio.com/learn/charts/bar-chart-complete-guide/.
+</help>
+</tool>

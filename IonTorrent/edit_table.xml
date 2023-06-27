@@ -1,0 +1,21 @@
+<tool id="myTools" name="Compute perico" version="0.1.0">
+  <description>Otu files</description>
+ <command interpreter="Rscript">
+                  createOtu.R --inputfile $input
+  </command>
+  <inputs>
+    <param format="tabular" name="input" type="data" label="Source file"/>
+  </inputs>
+  <outputs>
+	  <data format="rdata" name="output" label="${input.name.rsplit('.',1)[0]}.otu.Rdata" from_work_dir="otu.RData"/>
+          <param name="index" type="select">
+              <options from_work_dir="otu.RData" />
+          </param>
+  </outputs>
+  <help>
+This tool load otu file as table
+  </help>
+
+</tool>
+
+

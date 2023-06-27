@@ -1,0 +1,31 @@
+<tool id="myOtuphyl" name="Compute otuphyl" version="0.1.0">
+  <description>Process OTU file</description>
+  <command interpreter="Rscript">
+	  createOtuphyl.R --rdatafile $inputrdata --pvalcutoff $inputpval
+  </command>
+  <inputs>
+	  <param format="rdata" name="inputrdata" type="data" label="Source rdata Otu file"/>
+	  <param name="inputpval" type="text" value="0.05" label="Pvalue cutoff"/>
+  </inputs>
+ 
+    <outputs>
+	  <data format="rdata" name="outputphyl" label="${inputrdata.name.rsplit('.')[0]}.phyl.Rdata" from_work_dir="otuphyl.Rdata"/> 
+	  <data format="rdata" name="outputDE" label="${inputrdata.name.rsplit('.')[0]}.DEresult.Rdata" from_work_dir="DEresults.Rdata"/> 
+  </outputs>
+    <help>
+.. class:: warningmark
+
+**WARNING**. This tool requires **otu.Rdata file** get in *Process Otu file* tool. It also needs a p-value by the user in *Pvalue cutoff* in the selectable top box.
+
+**What does it do?**\
+
+This tool transforms  *.otu.Rdata* file into *otuphyl* file and *.DEresult.Rdata* the latter to create taxa differentially abundance.\
+
+User can select P-value cutoff to set a significance value.\
+
+.. class:: warningmark
+
+**WARNING** It is important to select correctly the type of file: *.Rdatafile*.
+  </help>
+</tool>
+

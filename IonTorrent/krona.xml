@@ -1,0 +1,55 @@
+<tool id="mykrona" name="Krona by group" version="0.1.0">
+  <description>Krona</description>
+<command interpreter="Rscript">
+    krona.R $inputs
+</command>
+
+<inputs>
+<param name="inputs" type="data" multiple="True" label="Consensus file"/>
+</inputs>
+
+<outputs>
+<data format="html" name="df_mean" label="df_mean.html" from_work_dir='$__tool_directory__/df_mean.html'/>
+</outputs>
+  <help> 
+
+.. class:: warningmark
+
+**WARNING**. This tool requires **all consensus** files of every sample in **.txt** format.\
+
+.. class:: infomark
+
+**What is a Krona chart?**\
+
+Krona make uses of circle graphics to represent and explore hierarchical data in different layers, offering an interactive metagenomic visualitation.\
+
+
+**Example**\
+
+.. image:: ${static_path}/images/iontorrent/krona1.png
+	     :height: 600
+             :width: 800
+
+Krona charts count with multiple tools:
+
+- **Max depth**: change the number of circles shown in the chart.
+
+- **Font size**: change the letter font size of krona charts.
+
+- **Chart size**: change the size of the chart.
+
+- **Collapse**: simplify different wedges.
+
+- **Snapshot**: creates an image of the pie chart.
+
+- **Link**: create a link of krona charts.
+
+- **?**: krona documentation.
+
+In the upper right corner there are different charts. They display percentages for every area of the chart.\
+
+**References**\
+
+Visualize metagenomics analysis results with Krona charts. (2021). (C) © Thermo Fisher Scientific Inc. All Rights Reserved. 2005. https://ionreporter.thermofisher.com/ionreporter/help/GUID-BE5F627D-27BE-48E3-ACCF-6C8C1585CF92.html
+ </help>
+</tool>

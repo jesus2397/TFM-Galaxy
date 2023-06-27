@@ -1,0 +1,20 @@
+<tool id="Rtest" name="Show tabular format" version="0.1.0">
+  <description>for each sequence in a file</description>
+  <command>RScript --vanilla '${_tool_directory_}/mytools.R' '$input' '$output'</command>
+  <inputs>
+    <param format="txt" name="metadata" type="data" label="Source file"/>
+    <param format="txt" name="family" type="data" label="Source file"/>
+    <param format="txt" name="genus" type="data" label="Source file"/>
+    <param format="txt" name="especies" type="data" label="Source file"/>
+  </inputs>
+  <outputs>
+    <data format=".RData" name="output" />
+    <data format=".RData" name="output" />
+    <data format=".RData" name="output" />
+  </outputs>
+
+  <help>
+This tool tabulates all data files
+  </help>
+
+</tool>

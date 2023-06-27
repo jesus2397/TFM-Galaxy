@@ -1,0 +1,102 @@
+---
+title: "alphaDiversityText"
+output: html_document
+params:
+  otuphylfile: NA
+  metadata: NA
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+pkgs <- c("ggplot2","dplyr","tidyr", "getopt","limma","tibble","phyloseq","kableExtra")
+for (pkg in pkgs) suppressPackageStartupMessages(stopifnot(library(pkg, quietly = TRUE, logical.return = TRUE, character.only = TRUE)))
+
+# options = matrix(c("otuphylfile","o",2,"character","metadata","m",2,"character"), byrow = TRUE, ncol = 4)
+# args=getopt(options)
+
+if (length(args)==0) {
+  stop("Two files must be supplied (Otu file, metadata files)", call.=FALSE)
+}
+
+
+load(params$otuphylfile)
+metadata <- read.table(params$metadata, header = T , sep="\t")
+otug <- otuphyl
+
+
+otugTable <- otu_table(otug)
+otugTable <- otugTable[rowSums(otugTable==0) <=100,]
+
+alphas <- suppressWarnings( suppressMessages(estimate_richness( otu_table(otugTable), measures = c("Chao1","Shannon","InvSimpson") )))
+alphas <- alphas %>%
+  rownames_to_column(var = "Sample")
+
+alphas <- alphas %>% select(-se.chao1) %>% pivot_longer(cols = c(Chao1,Shannon,InvSimpson)) %>% arrange(name,Sample)
+
+alphas <- left_join(alphas, metadata, by = c("Sample"="samples"))
+ttestchao <- aov(value~condition, data = alphas[alphas$name=="Chao1",])
+ttestInvSimpson <- aov(value~condition, data = alphas[alphas$name=="InvSimpson",])
+ttestshannon <- aov(value~condition, data = alphas[alphas$name=="Shannon",])
+
+```
+
+```{r eval=TRUE}
+options(knitr.kable.NA='')
+chao <- summary(ttestchao)
+chao <- chao[[1]] %>% as.data.frame()
+chao <- chao %>% mutate_at( .vars = vars( Df:`F value`), signif, 4)
+chao <- chao %>% mutate(`F value` = signif(`F value`, digits = 4),
+                `Pr(>F)`= format(`Pr(>F)`, scientific=TRUE, digits=4) )
+chao$`Pr(>F)`[1] <- cell_spec(chao$`Pr(>F)`[1],
+                              color = ifelse( as.numeric(chao$`Pr(>F)`[1])<= 0.05, "red","black") )
+chao$`Pr(>F)`[2] <- gsub("NA","", chao$`Pr(>F)`[2] )
+chao %>% kbl( escape=FALSE) %>% add_header_above(c("Alpha diversity CHAO1"=6)) %>% kable_paper("striped")
+```
+
+<br>
+
+```{r}
+is <- summary(ttestInvSimpson)
+is <- is[[1]] %>% as.data.frame()
+is <- is %>% mutate_at( .vars = vars( Df:`F value`), signif, 4)
+is <- is %>% mutate(`F value` = signif(`F value`, digits = 4),
+                `Pr(>F)`= format(`Pr(>F)`, scientific=TRUE, digits=4) )
+is$`Pr(>F)`[1] <- cell_spec(is$`Pr(>F)`[1],
+                              color = ifelse( as.numeric(is$`Pr(>F)`[1])<= 0.05, "red","black") )
+is$`Pr(>F)`[2] <- gsub("NA","", is$`Pr(>F)`[2] )
+is %>% kbl( escape=FALSE) %>% add_header_above(c("Alpha diversity Inv Simpson"=6)) %>% kable_paper("striped")
+
+```
+
+<br>
+
+```{r}
+sh <- summary(ttestshannon)
+sh <- sh[[1]] %>% as.data.frame()
+
+sh <- sh %>% mutate_at( .vars = vars( Df:`F value`), signif, 4)
+sh <- sh %>% mutate(`F value` = signif(`F value`, digits = 4),
+                `Pr(>F)`= format(`Pr(>F)`, scientific=TRUE, digits=4) )
+sh$`Pr(>F)`[1] <- cell_spec(sh$`Pr(>F)`[1],
+                              color = ifelse( as.numeric(sh$`Pr(>F)`[1])<= 0.05, "red","black") )
+sh$`Pr(>F)`[2] <- gsub("NA","", sh$`Pr(>F)`[2] )
+sh %>% kbl( escape=FALSE) %>% add_header_above(c("Alpha diversity Shannon"=6)) %>% kable_paper("striped")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+

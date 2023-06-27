@@ -1,0 +1,38 @@
+
+
+<tool id="qual_stats_boxplot" name="Dendrogram" version="1.0.1">
+  <description>Dendrogram</description>
+  <command interpreter="Rscript"> plotCluster.R --inputfile $input </command>
+  <inputs>
+    <param format="rdata" name="input" type="data" label="Source file"/>
+  </inputs>
+  <outputs>
+    <data format="png" name="clustplot" label="ClustPlotOtu.png" from_work_dir="ClustPlotOtu.png"/>
+  </outputs>
+  <help> 
+This tool generates a dendrogram from .Rdata file get in Process Otu tool.\
+
+.. class:: infomark
+
+**What is a dendrogram?**\
+
+Also known as *tree diagram*, it is a diagram that shows hierarchical relationships between differents components or objects. To interprete a dendrogram is precise to analyse height between all components. Components that have same height are similar between them. Nevertheless, components with different height have got more different between them.\
+
+**Dendrogram tool**\
+
+It represents hierarchical relationships between different samples that user introduce in IonTorrent. Also, different samples appears whit different colour: black, red and green. Red colour is for samples with I condition, black is for samples with H condition and green is for samples with J condition.\
+
+
+**Example**\
+
+.. image:: ${static_path}/images/iontorrent/dendrogram.png
+           :height: 900
+           :width: 900
+
+
+**References**\
+
+S. (2021, 23 noviembre). Hierarchical Clustering / Dendrogram: Simple Definition, Examples. Statistics How To. https://www.statisticshowto.com/hierarchical-clustering/
+
+ </help>
+</tool>

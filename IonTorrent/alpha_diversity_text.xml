@@ -1,0 +1,67 @@
+
+<tool id="alpha_diversity_text" name="Alpha diversity summary" version="0.1.0">
+  <description>Alpha diversity</description>
+  <command><![CDATA[
+	Rscript -e 'rmarkdown::render("$__tool_directory__/alphaDiversityText.Rmd", params=list("otuphylfile" = "$input", "metadata" = "$inputmeta")  , output_file="$alphaDiversityText", quiet=TRUE, output_format="html_document" )'
+	  ]]> 
+  </command>
+  <inputs>
+   <param format="rdata" name="input" type="data" label="Source file"/>
+    <param format="tabular" name="inputmeta" type="data" label="Source metadata file"/>
+  </inputs>
+  <outputs>
+   <data format="html" name="alphaDiversityText" label="alphaDiversityText.html" from_work_dir='$__tool_directory__/alphaDiversityText.html'/>
+  </outputs>
+ <help>
+
+.. class:: warningmark
+
+**WARNING**. This tool requires two types of files: **Otuphyl file** get in *Compute otuphyl* and **metadata.tsv file**.\
+ 
+**What does it do?**\
+
+*Alpha diversity summary* represent in three different tables the different richness stimators: Chao1, InvSimpson and Shannon indexes.\
+
+Tables contain in first column: type, residuals and significance code.\
+
+ In the first line appears different parameters calcalated in every richness stimator index:\
+
+- Degree freedom (Df).\
+
+- Sum of squares (Sum Sq).\
+
+- Mean square (Mean Sq).\
+
+- F value.\
+
+- P-value (Pr).\
+
+**Example**
+
+Three different richnes stimators::
+
+	  Alpha diversity Chao1
+	               Df Sum Sq Mean Sq F value  Pr   
+	   type         2  104.3   52.15   6.651 0.00259 **
+	   Residuals   55  431.2    7.84                   
+	   ---
+	   Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+
+	   Alpha diversity InvSimpson
+	               Df Sum Sq Mean Sq F value Pr
+	   type         2   5.02   2.509   1.489  0.235
+	   Residuals   55  92.67   1.685
+
+
+	   Alpha diversity Shannon
+	               Df Sum Sq Mean Sq F value Pr
+	   type         2  0.527  0.2637   2.076  0.135
+	   Residuals   55  6.987  0.1270
+
+
+(*) If P-value has a value below 0.05 result will be marked with asterisks (See *Signif. codes*).
+
+ </help>
+</tool>
+

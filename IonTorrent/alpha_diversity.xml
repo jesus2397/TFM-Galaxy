@@ -1,0 +1,52 @@
+
+<tool id="alpha_diversity" name="Alpha diversity by type" version="0.1.0">
+  <description>Alpha diversity</description>
+  <command interpreter="Rscript"> alpha_diversity.R --otuphylfile $input --metadata $inputmeta</command>
+  <inputs>
+   <param format="rdata" name="input" type="data" label="Source file"/>
+    <param format="tabular" name="inputmeta" type="data" label="Source metadata file"/>
+  </inputs>
+  <outputs>
+   <data format="png" name="alpha diversity" label="alpha_diversity.png" from_work_dir="alpha_diversity.png"/>
+  </outputs>
+ <help> 
+
+.. class:: warningmark
+
+**WARNING**. This tool requires two types of files: **Otuphyl file** get in *Compute otuphyl* and **metadata.tsv file**.\
+
+.. class:: infomark
+
+**What is alpha diversity?**\
+
+Alpha diversity measures the diversity within a single sample and is generally based on the number and relative abundance of taxa at some rank (e.g. species or OTUs).\
+
+To represent alpha diversity of OTUs, three differents richness stimators are used:\
+
+- **Chao1 index**: an index that estimates diversity from abundance data.\
+
+- **InvSimpson index**: it is the inverse of Simpson stimator.It is the effective number of types that is get  when the weighted mean is used to calculate average proportional abundance of types in the data of interest.	
+
+- **Shannon index**: it is a measure of diversity of species in a certain community.\
+
+**How Alpha diversity by group tool represents Chao1, InvSimpson and Shannon indexes?**\
+
+This tool uses three different boxplots for every type of index. In X-axis appears type of samples. In Y-axis appears value of every test. \
+
+**Example**\
+
+.. image:: ${static_path}/images/iontorrent/alpha_diversity.png
+           :height: 700
+           :width: 1100
+
+**References**\
+
+Computational biology tools. (2018). grunwaldlab. https://grunwaldlab.github.io\
+
+inverse.simpson function - RDocumentation. (2021). Rdocumentation. https://www.rdocumentation.org/packages/tcR/versions/2.3.2/topics/inverse.simpson
+
+Effect of dietary supplementation with a blend of protected aromatic compounds, including benzoic acid, on growth performance and faecal microbial profile of weaned piglets as an alternative to Zinc Oxide. (2021, 1 abril). ScienceDirect. https://www.sciencedirect.com/science/article/abs/pii/S1871141321000639
+
+</help>
+</tool>
+

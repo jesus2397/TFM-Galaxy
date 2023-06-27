@@ -1,0 +1,50 @@
+
+<tool id="mybarplot_sample_group" name="Barplot by sample and group" version="0.1.0">
+  <description>Barplot by sample and group </description>
+  <command interpreter="Rscript"> barplot_sample_and_group.R --otuphylfile $input </command>
+  <inputs>
+   <param format="rdata" name="input" type="data" label="Source file"/>
+  </inputs>
+  <outputs>
+   <data format="png" name="barplot" label="barplot_sample_and_group.png" from_work_dir="barplot_sample_and_group.png"/>
+  </outputs>
+  <help>
+
+.. class:: warningmark
+
+**WARNING**.This tool requires **Otuphyl file** get in *Compute otuphyl* tool.\
+
+.. class:: infomark
+
+**What is a barplot?**\
+
+A barplot is a graphics that represents the relationship between a numeric and a categorical variable. Each categorical variable claims one bar and they are represented in Y-axis. Values of every catego>
+
+
+**Barplot by sample and group tool**\
+
+This tool represents the abundance of genus, family or species of bacteria belonging to every sample. Moreover, graphics are divided by group: H, I and J. They are representing in the following way:\
+
+- In X-axis appears every sample recorded in data.\
+
+- In Y-axis appears the percentaje(%) of abundance of every type of bacteria.\
+
+- Barplots are clasified by group in three diferent boxes that represents every group.\
+
+**Example**\
+
+.. image:: ${static_path}/images/iontorrent/barplot_sample_and_group2.png
+           :height: 900
+           :width: 900
+
+
+
+**References**\
+
+Phillips, N. D. (2018, 22 january). YaRrr! The Pirate’s Guide to R. bookdown.org. https://bookdown.org/ndphillips/YaRrr/barplot-barplot.html\
+
+Miller, T. (2017, 7 july). What Is a Bar Chart? Chartio. https://chartio.com/learn/charts/bar-chart-complete-guide/.
+
+
+ </help>
+</tool>

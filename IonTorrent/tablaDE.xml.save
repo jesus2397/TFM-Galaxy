@@ -1,0 +1,37 @@
+<tool id="show_de" name="Show taxa differentially abundance" version="0.1.0" python_template_version="3.5">
+    <requirements>
+    </requirements>
+    <command detect_errors="exit_code" interpreter='Rscript'>
+        tablaDE.R -r '$input1'
+   </command>
+    <inputs>
+        <param type="data" name="input1" format="rdata" />
+    </inputs>
+    <outputs>
+        <data name="output1" format="tabular" from_work_dir="taxade.txt"/>
+    </outputs>
+    <help>
+This tool uses OTU*DEresult.Rdata get in *Compute otuphyl* tool. (Warning).\
+
+
+**What is differentially abundance?**\
+
+
+**What does it do?**\
+
+*Show taxa differentially abundance* represents OTU*DEresult.Rdata in a table with different parameters that stimate difference of abundance between different groups of of interest.
+
+**Example**\
+
+- Taxa differenctially abundance::
+
+            taxa                baseMean  log2foldChange   IfcSE        stat    p-value padj    contraste
+	Carnobacteriaceae	711.849	  -1.402	   0.624	-2.247	0.025	0.108	L_M
+	Sphingomonadaceae	807.092	  -2.601	   0.916	-2.839	0.005	0.033	L_M
+	Lactobacillaceae	78.367	  -3.453	   1.388	-2.488	0.013	0.071	L_M
+	Corynebacteriaceae	512.953	  -3.254	   1.074	-3.031	0.002	0.027	L_M
+	Sutterellaceae	        21.174	   7.302	   1.507	4.845	0	0	L_M
+	Sphingomonadaceae	807.092	  -3.424	   0.928	-3.69	0	0.001	L_S		
+
+    </help>
+</tool>

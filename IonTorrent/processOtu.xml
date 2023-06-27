@@ -1,0 +1,67 @@
+<tool id="myTools" name="Process OTU file" version="0.1.0">
+  <description>Process OTU file</description>
+ <command interpreter="Rscript">
+                  processOtu.R --otufile $inputotu --metadata $inputmeta
+  </command>
+  <inputs>
+    <param format="txt" name="inputotu" type="data" label="Source Otu file"/>
+    <param format="tabular" name="inputmeta" type="data" label="Source metadata file"/>
+  </inputs>
+    <outputs>
+	  <data format="rdata" name="output" label="${inputotu.name.rsplit('.',1)[0]}.otu.Rdata" from_work_dir="data.RData"/>
+  </outputs>
+    <help>
+.. class:: warningmark
+
+**WARNING**.This tool requires two types of files: **Otu file** with samples and **metadata file**. It is important that Otu file with samples goes in **.txt format** and metadata files goes in **.tsv format**. 
+
+
+**What it does?**
+
+This tool converts *.txt* format file and *.tsv* metadata file uploaded in previous tool (*Upload file*) to *.RData* format.
+
+
+ **Example**
+
+    1. First, *.txt* format file is selected. This file must have got in first line the name of every sample and in the first column the name of genus, family or species of bacteria::
+
+    
+	#OTU Table       	S001_DORADA_H1_v1	S002_DORADA_I3_v1	S003_DORADA_H2_v1	
+	Legionellaceae   	0                	23                   	83                   	  
+	Rhodobacteraceae     	633             	3607            	2942	
+	Gloeobacteraceae	0               	45			0	
+	Shewanellaceae	57	0               	0	                41	
+	Coriobacteriaceae	0                	15			0	
+	Veillonellaceae	142	217	                137	                358	
+	Pseudomonadaceae	0	                0                	1o
+
+
+    2. Second, *.tsv* format file metadata is selected. This file must have in first line metadata: samples and condition. First column must contain different samples and second columns must contain different conditions::
+
+
+	samples          	condition
+	S001_DORADA_H1_v1	H
+	S002_DORADA_I3_v1	I
+	S003_DORADA_H2_v1	H
+	S004_DORADA_H4_v1	H
+	S005_DORADA_I1_v1	I
+	S006_DORADA_H3_v1	H
+	S007_DORADA_I2_v1	J
+	S008_DORADA_I4_v1	J
+
+
+
+   3. Third, *Process OTU file* tool generates a .Rdata file::
+
+	                                 S001_DORADA_H1_v1 S002_DORADA_I3_v1 S003_DORADA_H2_v1 S004_DORADA_H4_v1 S005_DORADA_I1_v1 S006_DORADA_H3_v1
+	Legionellaceae                                   0                23                83                30                 0               281
+	Rhodobacteraceae                               633              3607              2942               395               113              5479
+	Gloeobacteraceae                                 0                45                 0                 0                 0                19
+	Shewanellaceae                                  57                 0                 0                41                 0                 0
+
+
+ This format is required to process all data in next tools of *IonTorrent*.
+  </help>
+</tool>
+
+

@@ -1,0 +1,80 @@
+
+
+<tool id="similarity" name="Similarity" version="0.1.0">
+  <description>Similarity</description>
+  <command> <![CDATA[ Rscript -e 'rmarkdown::render("$__tool_directory__/similarity.Rmd", params=list("otuphylfile" = "$input", "metadata" = "$inputmeta") , output_file="$similarity", quiet=TRUE, output_format="html_document" )' ]]> </command>
+  <inputs>
+   <param format="rdata" name="input" type="data" label="Source file"/>
+   <param format="tabular" name="inputmeta" type="data" label="Source metadata file"/>
+  </inputs>
+  <outputs>
+   <data format="html" name="similarity" label="similarity.html" from_work_dir="$__tool_directory__/similarity.html"/>
+  </outputs>
+  <help> 
+
+.. class:: warningmark
+
+**WARNING**. This tool requires two types of files: **Otuphyl file** get in *Compute otuphyl* and **metadata.tsv file**.\
+
+.. class:: infomark
+
+**What is Similarity?**\
+
+ANOSIM (Analysis of Similarities) is a robust non-parametric hypothesis testing framework for differences in resemblances among groups of samples. the test compares distances between groups with distances within groups.\
+
+**What does it do?**\
+
+This tool generates Similarity by type globally and by grupos de edad por parejas.\
+
+**Example**\
+
+**Global**::
+
+		anosim(x = t(otugTable), grouping = factor(exper$type), distance = bray) 
+		Dissimilarity: bray 
+		
+		ANOSIM statistic R: 0.3492 
+        		 Significance: 0.001 
+		
+		Permutation: free
+		Number of permutations: 999
+		
+		 Upper quantiles of permutations (null model):
+		    90%    95%  97.5%    99% 
+	       	0.0323 0.0421 0.0539 0.0676 
+		
+		 Dissimilarity ranks between and within classes:
+		         0%    25%   50%     75% 100%    N
+		 Between  5 577.00 950.0 1298.00 1651 1121
+		 L        1 246.50 562.0  899.00 1456  171
+		 M        3 207.25 459.5  981.75 1580  190
+		 S        8 259.00 502.0 1288.00 1653  171
+
+**Pairwise age groups**::
+
+
+		 anosim(x = t(tmp), grouping = factor(samplesComb[[i]]$type),      distance = "bray") 
+		 Dissimilarity: bray 
+		
+		 ANOSIM statistic R: 0.4084 
+		       Significance: 0.001 
+		 
+		 Permutation: free
+		 Number of permutations: 999
+		 
+		 Upper quantiles of permutations (null model):
+		    90%    95%  97.5%    99% 
+		 0.0425 0.0664 0.0882 0.1101 
+		 
+		 Dissimilarity ranks between and within classes:
+		         0%    25%   50%    75% 100%   N
+		 Between 30 303.75 455.0 599.25  741 380
+		 L        1 116.50 270.0 464.00  689 171
+		 M        3 101.25 218.5 506.75  736 190
+
+**References**\
+
+Somerfield, P. J. (2021, 1 septiembre). Analysis of similarities (ANOSIM) for 2âway layouts using a generalised ANOSIM statistic, with comparative notes on Permutational Multivariate Analysis of Variance (PERMANOVA). Wiley Online Library. https://onlinelibrary.wiley.com/doi/full/10.1111/aec.13059
+
+ </help>
+</tool>
